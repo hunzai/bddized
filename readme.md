@@ -1,14 +1,14 @@
 
 ### Approach
 - Using BDD with screen play pattern
-- Two feature files are written using Gherkin syntax, see in `test/resources/features`
-- Project is build with gradle
+- Test cases are written using Gherkin syntax, see in `test/resources/features`
+- Using `selenium` with `FireFoxDriver`, `ChromeDriver` and `HttpURLConnection`
 
 ### Design
 - Selenium hub/grid or standalone is running independently
 - Use any library to verify expected web page statuses. Provided an interface for custom implementation to fetch and get status
 - Use webdriver logs (geckodriver and chromedriver) to verify js errors 
--  Using browser logging to analyze errors in Firefox and Chrome. A custom implementation is provided to read logs for firefox. As `webDriver.manage().logs()`
+- Using browser logging to analyze errors in Firefox and Chrome. A custom implementation is provided to read logs for firefox. As `webDriver.manage().logs()`
   is not supported by firefox
    
 ### Libraries
