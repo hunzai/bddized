@@ -1,17 +1,16 @@
 package com.bddized.framework.abilities;
 
+import com.bddized.framework.InterfaceResponseCode;
 import com.bddized.framework.LogExtractor;
-import com.bddized.pages.HomePage;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-public class Verification {
+public class Verification implements InterfaceResponseCode {
 
     private WebDriver webDriver;
     private LogExtractor logExtractor;
@@ -27,10 +26,15 @@ public class Verification {
     }
 
     public void seesResponseCode(int expected) throws IOException {
+        int actual = getResponseCode(this.webDriver.getCurrentUrl());
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Override
+    public int getResponseCode(String pageUrl) throws IOException {
         URL url = new URL(this.webDriver.getCurrentUrl());
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
-        int actual = con.getResponseCode();
-        Assert.assertEquals(expected, actual);
+        return con.getResponseCode();
     }
 }

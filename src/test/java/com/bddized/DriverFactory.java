@@ -10,7 +10,9 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,14 +24,25 @@ public class DriverFactory {
     private final static String CHROME = "chrome";
     private final static String SAFARI = "safari";
     private final static String IE = "ie";
-    private static WebDriver webDriver;
+    private static RemoteWebDriver webDriver;
 
-    public static WebDriver getDriver() throws Exception {
+    public static RemoteWebDriver getDriver() throws Exception {
 
-        String browserType = System.getProperty("browser");
-        if (browserType == null || browserType.isEmpty()) {
-            throw new Exception("browser not found. Please set gradle -Dbrowser=<chrome|firefox|safari>");
+        String remoteDriverURL = System.getenv("SELENIUM_REMOTE_URL");
+        URL url;
+        if (remoteDriverURL == null || remoteDriverURL.isEmpty()) {
+            throw new Exception("Env variable SELENIUM_REMOTE_URL not found");
+        }else {
+            url = new URL(remoteDriverURL);
         }
+
+        String browserType = System.getenv("BROWSER");
+        if (browserType == null || browserType.isEmpty()) {
+            throw new Exception("Env variable BROWSER not found.");
+        }
+
+        logger.info("RemoteDriver URL: " + remoteDriverURL);
+        logger.info("Browser: " + browserType);
 
         LoggingPreferences logPrefs = new LoggingPreferences();
 
@@ -41,22 +54,21 @@ public class DriverFactory {
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
                 firefoxOptions.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
 
-                webDriver = new FirefoxDriver(firefoxOptions);
+                webDriver = new RemoteWebDriver(url, firefoxOptions);
                 break;
 
             case CHROME:
-                System.out.println("PROPS " + WebDriverManager.chromedriver().config().getProperties());
                 WebDriverManager.chromedriver().setup();
                 logPrefs.enable(LogType.BROWSER, Level.ALL);
 
-                ChromeOptions cap = new ChromeOptions();
-                cap.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
+                ChromeOptions chromeOptions = new ChromeOptions();
+                chromeOptions.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
 
-                webDriver = new ChromeDriver(cap);
+                webDriver = new RemoteWebDriver(url, chromeOptions);
                 break;
 
             default:
-                logger.warning("-Dbrowser is invalid or not provided " + browserType);
+                logger.warning("Env BROWSER=" + browserType + " is invalid");
         }
 
         return webDriver;
