@@ -57,5 +57,6 @@ task regressionTests(type: Test) {
     systemProperty("webdriver.firefox.logfile", "logs/firefox.log")
     systemProperty("webdriver.chrome.verboseLogging", "true")
     systemProperty("webdriver.chrome.logfile", "logs/chrome.log")
+    systemProperty("webdriver.ie.logfile", "logs/ie.log")
     systemProperties System.properties
 }

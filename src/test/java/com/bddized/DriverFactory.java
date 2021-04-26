@@ -1,7 +1,9 @@
 package com.bddized;
 
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
@@ -17,8 +19,8 @@ public class DriverFactory {
 
     private final static String FIREFOX = "firefox";
     private final static String CHROME = "chrome";
-    private final static String SAFARI = "safari";
     private final static String IE = "ie";
+
     private static RemoteWebDriver webDriver;
 
     public static RemoteWebDriver getDriver() throws Exception {
@@ -53,6 +55,12 @@ public class DriverFactory {
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
                 webDriver = new RemoteWebDriver(url, chromeOptions);
+                break;
+
+            case IE:
+                EdgeOptions edgeOptions = new EdgeOptions();
+                edgeOptions.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
+                webDriver = new RemoteWebDriver(url, edgeOptions);
                 break;
 
             default:

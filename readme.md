@@ -22,12 +22,13 @@
 
 #### Running Tests  
 - checkout project `git clone https://github.com/hunzai/bddized.git`
-- goto project root and run `docker-compose up`. This will,
+- goto project root and run `docker-compose up`. See https://github.com/SeleniumHQ/docker-selenium for more details
   - spin standalone instances of selenium for firefox and chrome
   - chrome will run on port 4004 and firefox on 4005
 - NOTE: In theory, you should be able to run against any selenium grid or 3rd party url (e.g saucelabs)
 - run firefox regression test `./scripts/run_firefox_regression.sh`  
 - run chrome regression test`./scripts/run_chrome_regression.sh`  
+- run edge regression test`./scripts/run_ie_regression.sh`  
 OR
 - run chrome regression with `BROWSER="chrome" SELENIUM_REMOTE_URL="http://127.0.0.1:4004" gradle clean compileTestJava regressionTests --info`
 - run firefox regression with `BROWSER="firefox" SELENIUM_REMOTE_URL="http://127.0.0.1:4005" gradle clean compileTestJava regressionTests --info`

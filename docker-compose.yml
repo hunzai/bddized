@@ -9,7 +9,6 @@ services:
       - 4004:4444
       - 7904:7900
 
-
   firefox:
     image: selenium/standalone-firefox:4.0.0
     volumes:
