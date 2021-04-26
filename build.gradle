@@ -30,13 +30,8 @@ dependencies {
     // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-chrome-driver
     implementation group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version: '3.141.59'
 
-    // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-safari-driver
-    implementation group: 'org.seleniumhq.selenium', name: 'selenium-safari-driver', version: '3.141.59'
-
     // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-ie-driver
     implementation group: 'org.seleniumhq.selenium', name: 'selenium-ie-driver', version: '3.141.59'
-
-    implementation("io.github.bonigarcia:webdrivermanager:4.4.0")
 
     testCompile 'junit:junit:4.11'
 

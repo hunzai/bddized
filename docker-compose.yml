@@ -6,8 +6,8 @@ services:
     volumes:
       - /dev/shm:/dev/shm
     ports:
-      - 4000:4444
-      - 7900:7900
+      - 4004:4444
+      - 7904:7900
 
 
   firefox:
@@ -15,13 +15,13 @@ services:
     volumes:
       - /dev/shm:/dev/shm
     ports:
-      - 4001:4444
-      - 7901:7900
+      - 4005:4444
+      - 7905:7900
 
   edge:
     image: selenium/standalone-edge:4.0.0
     volumes:
       - /dev/shm:/dev/shm
     ports:
-      - 4002:4444"
-      - 7902:7900
+      - 4006:4444
+      - 7906:7900

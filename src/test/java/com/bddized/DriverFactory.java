@@ -1,11 +1,6 @@
 package com.bddized;
 
-
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
@@ -45,25 +40,18 @@ public class DriverFactory {
         logger.info("Browser: " + browserType);
 
         LoggingPreferences logPrefs = new LoggingPreferences();
+        logPrefs.enable(LogType.BROWSER, Level.ALL);
 
         switch (browserType) {
             case FIREFOX:
-                WebDriverManager.firefoxdriver().setup();
-                logPrefs.enable(LogType.BROWSER, Level.ALL);
-
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
                 firefoxOptions.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
-
                 webDriver = new RemoteWebDriver(url, firefoxOptions);
                 break;
 
             case CHROME:
-                WebDriverManager.chromedriver().setup();
-                logPrefs.enable(LogType.BROWSER, Level.ALL);
-
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
-
                 webDriver = new RemoteWebDriver(url, chromeOptions);
                 break;
 

@@ -1,52 +1,33 @@
 
 ### Approach
-
 - Using BDD with screen play pattern
 - Two feature files are written using Gherkin syntax, see in `test/resources/features`
 - Project is build with gradle
-- Using browser logging to analyze errors in Firefox and Chrome. A custom implementation is provided to read logs for firefox. As `webDriver.manage().logs()`
-is not supported by firefox
-- Using `https://github.com/bonigarcia/webdrivermanager` to mange driver binaries
 
-### Assumption
-- Use any library to verify expected web page statues 
-- Use selenium (geckodriver and chromedriver) to verify js errors
-
-### Out of scope
-- Running in cloud (e.g. saucelabs) or using selenium grid
-
-
-### Dependencies
+### Design
+- Selenium hub/grid or standalone is running independently
+- Use any library to verify expected web page statuses. Provided an interface for custom implementation to fetch and get status
+- Use webdriver logs (geckodriver and chromedriver) to verify js errors 
+-  Using browser logging to analyze errors in Firefox and Chrome. A custom implementation is provided to read logs for firefox. As `webDriver.manage().logs()`
+  is not supported by firefox
+   
+### Libraries
 - Selenium (Apache 2.0 License), see https://github.com/SeleniumHQ/selenium
-- WebDriverManager (Apache 2.0 License), see https://github.com/bonigarcia/webdrivermanager
 - Cucumber JVM (MIT License) , see https://github.com/cucumber/cucumber-jvm
 - Junit:4.11
 
+#### Pre-Requisite
+- docker and docker-compose is installed
+- Java/gradle is configured
 
-### Running tests
-
-#### Pre-Requisit
-- `docker-compose up`  to run standalone instances of selenium for firefox and chrome. Firefox will run on port 4000 and chrome on 40001
+#### Running Tests  
+- `docker-compose up`  to spin standalone instances of selenium for firefox and chrome. Firefox will run on port 4000 and chrome on 40001
+- NOTE: In theory, you should be able to run against any selenium grid or 3rd party url (e.g saucelabs)
+- goto `http://localhost:4444/` and make sure Selenium Grid is running  
 - `export BROWSER=<firefox|chrome>`
 - `export SELENIUM_REMOTE_URL=<>`
-- `./script`  
-- checkout project 
-- run in  firefox
-``
-gradle clean compileTestJava regressionTests -Dbrowser=chrome -Dtags="@jsErrors" --info
-``
-
-- run in chrome  
-
-```
-gradle clean compileTestJava regressionTests -Dbrowser=chrome -Dtags="@jsErrors" --info
-```
+- `./scripts/run_firefox_regression.sh`  
+- `./scripts/run_chrome_regression.sh`  
 
 ### Results
-- Results can be found under `${projectDir}/reports/tests/regressionTests/index.html`
-
-
-### docker
-- selenium-docker, see `https://github.com/SeleniumHQ/docker-selenium`
-`$ docker run -d -p 4444:4444 -v /dev/shm:/dev/shm selenium/standalone-firefox:4.0.0-beta-3-prerelease-20210422
-`
+- Results can be found under `${projectDir}/build/reports/tests/regressionTests/index.html`
