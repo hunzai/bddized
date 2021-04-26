@@ -21,13 +21,17 @@
 - Java/gradle is configured
 
 #### Running Tests  
-- `docker-compose up`  to spin standalone instances of selenium for firefox and chrome. Firefox will run on port 4000 and chrome on 40001
+- checkout project `git clone https://github.com/hunzai/bddized.git`
+- goto project root and run `docker-compose up`. This will,
+  - spin standalone instances of selenium for firefox and chrome
+  - chrome will run on port 4004 and firefox on 4005
 - NOTE: In theory, you should be able to run against any selenium grid or 3rd party url (e.g saucelabs)
-- goto `http://localhost:4444/` and make sure Selenium Grid is running  
-- `export BROWSER=<firefox|chrome>`
-- `export SELENIUM_REMOTE_URL=<>`
-- `./scripts/run_firefox_regression.sh`  
-- `./scripts/run_chrome_regression.sh`  
+- run firefox regression test `./scripts/run_firefox_regression.sh`  
+- run chrome regression test`./scripts/run_chrome_regression.sh`  
+OR
+- run chrome regression with `BROWSER="chrome" SELENIUM_REMOTE_URL="http://127.0.0.1:4004" gradle clean compileTestJava regressionTests --info`
+- run firefox regression with `BROWSER="firefox" SELENIUM_REMOTE_URL="http://127.0.0.1:4005" gradle clean compileTestJava regressionTests --info`
+- you can set env to run a specific test `TAGS` e.g. `TAGS="@jsErrors"`
 
 ### Results
 - Results can be found under `${projectDir}/build/reports/tests/regressionTests/index.html`
