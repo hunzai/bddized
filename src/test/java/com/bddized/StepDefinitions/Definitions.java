@@ -11,6 +11,7 @@ import io.cucumber.java.en.When;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -20,7 +21,7 @@ public class Definitions {
 
     private Logger logger = Logger.getLogger("Definitions");
     private InterfaceCustomerActor actor;
-    private static   WebDriver webDriver;
+    private static RemoteWebDriver webDriver;
 
     @Before
     public void setUp() throws Exception {

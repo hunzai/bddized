@@ -4,6 +4,7 @@ import com.bddized.framework.InterfaceResponseCode;
 import com.bddized.framework.LogExtractor;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -12,10 +13,10 @@ import java.util.List;
 
 public class Verification implements InterfaceResponseCode {
 
-    private WebDriver webDriver;
+    private RemoteWebDriver webDriver;
     private LogExtractor logExtractor;
 
-    public Verification(WebDriver webDriver) {
+    public Verification(RemoteWebDriver webDriver) {
         this.webDriver =  webDriver;
         this.logExtractor = new LogExtractor();
     }

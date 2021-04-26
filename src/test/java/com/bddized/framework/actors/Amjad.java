@@ -6,6 +6,7 @@ import com.bddized.framework.abilities.Navigation;
 import com.bddized.framework.abilities.Search;
 import com.bddized.framework.abilities.Verification;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class Amjad extends AbstractAbility implements InterfaceCustomerActor {
 
@@ -13,7 +14,7 @@ public class Amjad extends AbstractAbility implements InterfaceCustomerActor {
     private Search search;
     private Verification verification;
 
-    public Amjad(WebDriver webDriver) {
+    public Amjad(RemoteWebDriver webDriver) {
         super(webDriver);
         this.navigation = new Navigation(webDriver);
         this.search = new Search(webDriver);

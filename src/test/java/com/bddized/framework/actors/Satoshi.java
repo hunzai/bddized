@@ -4,11 +4,11 @@ import com.bddized.InterfaceGuestActor;
 import com.bddized.framework.abilities.Navigation;
 import com.bddized.framework.abilities.Search;
 import com.bddized.framework.abilities.Verification;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class Satoshi implements InterfaceGuestActor {
 
-    private WebDriver webDriver;
+    private RemoteWebDriver webDriver;
 
     @Override
     public String name() {

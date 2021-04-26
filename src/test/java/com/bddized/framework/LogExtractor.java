@@ -43,15 +43,21 @@ public class LogExtractor implements InterfaceLogExtractor {
     }
 
     @Override
-    public List<String> getJavascriptErrors(final WebDriver webDriver) throws IOException {
-        RemoteWebDriver remoteWebDriver = (RemoteWebDriver)webDriver;
-        String browserName = (String) remoteWebDriver.getCapabilities().getCapability(CapabilityType.BROWSER_NAME);
-        List<String> logMessages ;
+    public List<String> getJavascriptErrors(final RemoteWebDriver webDriver) throws IOException {
+        String browserName = (String) webDriver.getCapabilities().getCapability(CapabilityType.BROWSER_NAME);
+
         if (browserName.matches("chrome")){
-            logMessages = getChromeLogs(webDriver);
+            return getChromeLogs(webDriver);
+        }else if (browserName.matches("firefox")){
+            return getFirefoxErrorLogs(webDriver);
         }else {
-            logMessages = getFirefoxErrorLogs(webDriver);
+            List<String> logMessages = new ArrayList<>();
+            webDriver.manage().logs().get(LogType.BROWSER).forEach(logEntry -> {
+                if (logEntry.getLevel().equals(Level.SEVERE)) {
+                    logMessages.add(logEntry.getMessage());
+                }
+            });
+            return logMessages;
         }
-        return logMessages;
     }
 }
