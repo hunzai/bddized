@@ -64,7 +64,8 @@ public class Definitions {
     }
 
     @Given("{string} sees no javascript errors")
-    public void canLog(String name) throws IOException {
+    public void seeNoJavascriptErrors(String name) throws IOException {
+        logger.info(name + " is checking for js errors");
         this.actor.verification().seesNoJsErrors();
     }
 }

@@ -36,3 +36,9 @@ OR
 
 ### Results
 - Results can be found under `${projectDir}/build/reports/tests/regressionTests/index.html`
+AND
+- optionally results are published to https://reports.cucumber.io/reports/<id>. Please see console for the correct url  
+
+
+## NOTES
+- in case of firefox `webDriver.get("browser").logs()` is not working therefore logs are parsed from log file. See https://github.com/SeleniumHQ/selenium/issues/7792

@@ -17,7 +17,6 @@ import java.util.stream.Stream;
 public class LogExtractor implements InterfaceLogExtractor {
 
     private List<String> getFirefoxErrorLogs(final WebDriver webDriver) throws IOException {
-
         String logFilePath = System.getProperty("webdriver.firefox.logfile");
         Path path = Paths.get(logFilePath);
         List<String> logMessages = new ArrayList<>();
@@ -32,7 +31,7 @@ public class LogExtractor implements InterfaceLogExtractor {
         return logMessages;
     }
 
-    private List<String> getChromeLogs(final WebDriver webDriver){
+    private List<String> getErrorLogs(final WebDriver webDriver){
         List<String> errors = new ArrayList<>();
         webDriver.manage().logs().get(LogType.BROWSER).forEach(logEntry -> {
             if (logEntry.getLevel().equals(Level.SEVERE)) {
@@ -46,18 +45,10 @@ public class LogExtractor implements InterfaceLogExtractor {
     public List<String> getJavascriptErrors(final RemoteWebDriver webDriver) throws IOException {
         String browserName = (String) webDriver.getCapabilities().getCapability(CapabilityType.BROWSER_NAME);
 
-        if (browserName.matches("chrome")){
-            return getChromeLogs(webDriver);
-        }else if (browserName.matches("firefox")){
+        if (browserName.matches("firefox")){
             return getFirefoxErrorLogs(webDriver);
         }else {
-            List<String> logMessages = new ArrayList<>();
-            webDriver.manage().logs().get(LogType.BROWSER).forEach(logEntry -> {
-                if (logEntry.getLevel().equals(Level.SEVERE)) {
-                    logMessages.add(logEntry.getMessage());
-                }
-            });
-            return logMessages;
+            return getErrorLogs(webDriver);
         }
     }
 }
