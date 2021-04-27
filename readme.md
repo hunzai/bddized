@@ -34,6 +34,10 @@ OR
 - run firefox regression with `BROWSER="firefox" SELENIUM_REMOTE_URL="http://127.0.0.1:4005" gradle clean compileTestJava regressionTests --info`
 - you can set env to run a specific test `TAGS` e.g. `TAGS="@jsErrors"`
 
+#### Docker Image
+You can also build the docker image and run tests
+- Build image `docker build -t bbdized:latest . `
+- Run tests `docker run -e BROWSER=<chrome|firefox|ie> -e SELENIUM_REMOTE_URL=<url_to_selenium_hub> bbdized:latest `
 ### Results
 - Results can be found under `${projectDir}/build/reports/tests/regressionTests/index.html`
 AND
